@@ -24,3 +24,20 @@ export interface NodeTypeProps {
     description: string;
     thumbnail: ThumbnailPropsType;
 }
+
+export type ProductDataType = {
+    id: string;
+    name: string;
+    images: { url: string }[];
+    description: string;
+    brand: string;
+    category: { name: string };
+    pricing: {
+        priceRange: {
+            start: { gross: { amount: number } };
+        };
+        discount: number;
+    };
+    isAvailableForPurchase: boolean;
+    weight: { value: number; unit: string };
+};

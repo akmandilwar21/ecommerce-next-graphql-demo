@@ -3,17 +3,18 @@ import client from "../../../lib/apollo-client";
 import Image from "next/image";
 import { extractAndDisplayText } from "@/app/utils";
 
-export async function getProductData(id: string) {
-  const { data } = await client.query({
-    query: GET_PRODUCT,
-    variables: { id: decodeURIComponent(id) },
-  });
-
-  return data.product;
-}
-
 const ProductDetails = async ({ params }: { params: { id: string } }) => {
-  const product = await getProductData(params.id);
+  const id: string = params.id;
+
+  const getProductData = async (id: string) => {
+    const { data } = await client.query({
+      query: GET_PRODUCT,
+      variables: { id: decodeURIComponent(id) },
+    });
+    return data?.product ?? null;
+  };
+
+  const product = await getProductData(id);
   if (!product) {
     return (
       <div className="w-screen h-screen flex gap-2 items-center justify-center">
