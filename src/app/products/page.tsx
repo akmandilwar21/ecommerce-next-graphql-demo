@@ -3,21 +3,17 @@ import client from "../../lib/apollo-client";
 import Image from "next/image";
 import { NodeTypeProps } from "@/lib/types";
 import Link from "next/link";
-import { extractAndDisplayText } from "../utils";
 import Rating from "@mui/material/Rating";
-import { styled } from "@mui/material/styles";
-import { useState } from "react";
 import { Button } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 const ProductsPage = async () => {
   const { data } = await client.query({
     query: GET_PRODUCTS,
   });
-  console.log(data, "data");
-  const products = data.products.edges.map(
+    const products = data.products.edges.map(
     ({ node }: { node: NodeTypeProps }) => node
   );
-  console.log(products, "proucts");
+
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8">

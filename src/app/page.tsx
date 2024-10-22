@@ -1,21 +1,11 @@
-import { NodeTypeProps } from "@/lib/types";
+
 import Box from "@mui/material/Box/Box";
-import Link from "next/link";
-import { extractAndDisplayText } from "./utils";
-import client from "@/lib/apollo-client";
-import Image from "next/image";
-import { GET_PRODUCTS } from "@/lib/queries";
+
 import ProductsPage from "./products/page";
 import { Navbar } from "./navbar";
 
 export default async function Home() {
-  const { data } = await client.query({
-    query: GET_PRODUCTS,
-  });
-
-  const products = data.products.edges.map(
-    ({ node }: { node: NodeTypeProps }) => node
-  );
+  
 
   return (
     <>

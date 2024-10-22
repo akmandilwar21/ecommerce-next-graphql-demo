@@ -1,6 +1,6 @@
 import Image from "next/image";
 import logo from "./logo.svg";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 export const Navbar = () => {
   return (
