@@ -23,6 +23,13 @@ export interface NodeTypeProps {
     name: string;
     description: string;
     thumbnail: ThumbnailPropsType;
+    pricing: {
+        priceRange: {
+            stop: { net: { amount: number } };
+        };
+        discount: number;
+    };
+    isAvailableForPurchase: boolean;
 }
 
 export type ProductDataType = {

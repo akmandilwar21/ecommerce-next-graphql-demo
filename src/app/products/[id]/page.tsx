@@ -2,7 +2,9 @@ import { GET_PRODUCT } from "../../../lib/queries";
 import client from "../../../lib/apollo-client";
 import Image from "next/image";
 import { extractAndDisplayText } from "@/app/utils";
-
+import { Navbar } from "@/app/navbar";
+import { Box, Button, Rating } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 const ProductDetails = async ({ params }: { params: { id: string } }) => {
   const id: string = params.id;
 
@@ -24,71 +26,93 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <div className="container mx-auto p-8">
-      <p className="text-4xl font-medium text-gray-600 tracking-wide uppercase mb-4">
-        {product.name}
-      </p>
-      <div
-        className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch"
-        style={{ position: "relative", width: "100%", height: "400px" }}
-      >
-        <Image
-          src={product.images[0].url}
-          alt={product.name || "NA"}
-          width={500}
-          height={500}
-          className="object-contain w-full h-auto max-h-[400px]"
-        />
-        <div>
-          <div className="flex flex-row">
-            <div className="bg-gray-400 p-1 rounded">
-              <p className="text-white text-sm">
-                ID: <span className="text-xs">{product.id}</span>
+    <>
+      <Navbar />
+      <Box sx={{ background: "#000", height: "88.7vh" }}>
+        <Box sx={{ padding: "30px 45px", color: "#fff" }}>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch"
+            style={{ position: "relative", width: "100%", height: "400px" }}
+          >
+            <Image
+              src={product.images[0].url}
+              alt={product.name || "NA"}
+              width={500}
+              height={500}
+              className="object-contain w-full h-auto max-h-[400px]"
+              style={{ border: "1px solid #453636", borderRadius: "8px" }}
+            />
+            <div>
+              <div className="flex flex-row">
+                <div className="p-1 rounded">
+                  <p className="text-4xl font-medium tracking-wide uppercase mb-4">
+                    {product.name}
+                  </p>
+                </div>
+              </div>
+              <p className="text-md mt-2 mb-4">
+                <Rating name="half-rating" defaultValue={3.5} precision={0.5} />
               </p>
+              <div className="text-sm  capitalize">
+                <span className="me-2">
+                  <span
+                    className="text-lg font-bold"
+                    style={{ textDecoration: "line-through" }}
+                  >
+                    ${product.pricing.priceRange.start.gross.amount || ""}
+                  </span>
+                  <span className="text-lg font-bold ml-2">
+                    ${product.pricing.priceRange.start.gross.amount - 0.5 || ""}
+                  </span>
+                </span>
+              </div>
+              <p className="text-md mt-2 mb-4">
+                {extractAndDisplayText(product.description) || ""}
+              </p>
+              <p className="text-sm  capitalize">
+                Brand: {product?.brand || "NA"}
+              </p>
+              <p className="text-sm  capitalize">
+                Category: {product.category.name || ""}
+              </p>
+
+              <p className="text-sm  capitalize">Return Policy: NA</p>
+              <p className="text-sm  capitalize">Warranty: 1 Year</p>
+
+              <p className="text-sm  capitalize">
+                Availability:{" "}
+                {product.isAvailableForPurchase ? (
+                  <span className="text-green-500">In Stock</span>
+                ) : (
+                  <span className="text-red-500">Out of Stock</span>
+                )}
+              </p>
+
+              <p className="text-sm ">
+                Weight: {product.weight.value}{" "}
+                <span className="lowercase">{product.weight.unit}</span>
+              </p>
+              <Button
+                variant="outlined"
+                fullWidth
+                sx={{
+                  textAlign: "center",
+                  color: "#a9a9a9",
+                  marginTop: "10px",
+                  borderColor: "#a9a9a9",
+                  "&:hover": {
+                    borderColor: "#fff",
+                    color: "#fff", // White border on hover
+                  },
+                }}
+              >
+                Add to cart<ShoppingCartIcon sx={{width:'15px',ml:"5px"}}/>
+              </Button>
             </div>
           </div>
-          <p className="text-md text-gray-600 mt-2 mb-4">
-            {extractAndDisplayText(product.description) || ""}
-          </p>
-          <p className="text-sm text-gray-500 capitalize">
-            Brand: {product?.brand || "NA"}
-          </p>
-          <p className="text-sm text-gray-500 capitalize">
-            Category: {product.category.name || ""}
-          </p>
-
-          <div className="text-sm text-gray-500 capitalize">
-            <span className="me-2 text-yellow-500">
-              Price: $
-              <span className="text-lg font-bold">
-                {product.pricing.priceRange.start.gross.amount || ""}
-              </span>
-            </span>
-            |
-            <span className="ms-2 text-green-500">
-              Discount: {product.pricing.discount || 0}%
-            </span>
-          </div>
-
-          <p className="text-sm text-gray-500 capitalize">Return Policy: NA</p>
-          <p className="text-sm text-gray-500 capitalize">Warranty: 1 Year</p>
-
-          <p className="text-sm text-gray-500 capitalize">
-            Availability:{" "}
-            {product.isAvailableForPurchase ? (
-              <span className="text-green-500">In Stock</span>
-            ) : (
-              <span className="text-red-500">Out of Stock</span>
-            )}
-          </p>
-
-          <p className="text-sm text-gray-500">
-            Weight: {product.weight.value}{" "}
-            <span className="lowercase">{product.weight.unit}</span>
-          </p>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </>
   );
 };
 
