@@ -2,6 +2,7 @@ import Image from "next/image";
 import logo from "./logo.svg";
 import { Box, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Link from "next/link";
 export const Navbar = () => {
   return (
     <nav
@@ -15,7 +16,9 @@ export const Navbar = () => {
         justifyContent: "space-between",
       }}
     >
+          <Link href={`/`}>
       <Image height={100} width={100} alt="logo" src={logo} />
+      </Link>
       <Box
         sx={{ display: "flex", justifyContent: "space-around", width: "25%" }}
       >
@@ -33,6 +36,7 @@ export const Navbar = () => {
         >
           Contact Us
         </Typography>
+        <Link href={`/`}>
         <Typography
           variant="overline"
           gutterBottom
@@ -47,6 +51,7 @@ export const Navbar = () => {
         >
           Home
         </Typography>
+        </Link>
         <Typography
           variant="overline"
           gutterBottom
