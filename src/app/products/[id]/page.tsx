@@ -53,10 +53,10 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
               <p className="text-md mt-2 mb-4">
                 <Rating name="half-rating" defaultValue={3.5} precision={0.5} />
               </p>
-              <div className="text-sm  capitalize">
+              <div className="text-md  capitalize">
                 <span className="me-2">
                   <span
-                    className="text-lg font-bold"
+                    className="text-xl font-bold"
                     style={{ textDecoration: "line-through" }}
                   >
                     ${product.pricing.priceRange.start.gross.amount || ""}
@@ -66,39 +66,56 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
                   </span>
                 </span>
               </div>
-              <p className="text-md mt-2 mb-4">
+              <p className="text-lg mt-2 mb-4">
                 {extractAndDisplayText(product.description) || ""}
               </p>
-              <p className="text-sm  capitalize">
-                Brand: {product?.brand || "NA"}
-              </p>
-              <p className="text-sm  capitalize">
-                Category: {product.category.name || ""}
-              </p>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Box>
+                  <p className="text-md  capitalize">
+                    Brand: {product?.brand || "NA"}
+                  </p>
+                </Box>
+                <Box>
+                  <p className="text-md  capitalize">
+                    Category: {product.category.name || ""}
+                  </p>
+                </Box>
+              </Box>
+              <Box sx={{ display: "flex", justifyContent: "space-between", marginTop:'10px' }}>
+                <Box>
+                  <p className="text-md  capitalize">Return Policy: NA</p>
+                </Box>
+                <Box>
+                  <p className="text-md  capitalize">Warranty: 1 Year</p>
+                </Box>
+              </Box>
 
-              <p className="text-sm  capitalize">Return Policy: NA</p>
-              <p className="text-sm  capitalize">Warranty: 1 Year</p>
+              <Box sx={{ display: "flex", justifyContent: "space-between", marginTop:'10px' }}>
+                <Box>
+                  <p className="text-md  capitalize">
+                    Availability:{" "}
+                    {product.isAvailableForPurchase ? (
+                      <span className="text-green-500">In Stock</span>
+                    ) : (
+                      <span className="text-red-500">Out of Stock</span>
+                    )}
+                  </p>
+                </Box>
+                <Box>
+                  <p className="text-md ">
+                    Weight: {product.weight.value}{" "}
+                    <span className="lowercase">{product.weight.unit}</span>
+                  </p>
+                </Box>
+              </Box>
 
-              <p className="text-sm  capitalize">
-                Availability:{" "}
-                {product.isAvailableForPurchase ? (
-                  <span className="text-green-500">In Stock</span>
-                ) : (
-                  <span className="text-red-500">Out of Stock</span>
-                )}
-              </p>
-
-              <p className="text-sm ">
-                Weight: {product.weight.value}{" "}
-                <span className="lowercase">{product.weight.unit}</span>
-              </p>
               <Button
                 variant="outlined"
                 fullWidth
                 sx={{
                   textAlign: "center",
                   color: "#a9a9a9",
-                  marginTop: "10px",
+                  marginTop: "40px",
                   borderColor: "#a9a9a9",
                   "&:hover": {
                     borderColor: "#fff",
@@ -106,7 +123,8 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
                   },
                 }}
               >
-                Add to cart<ShoppingCartIcon sx={{width:'15px',ml:"5px"}}/>
+                Add to cart
+                <ShoppingCartIcon sx={{ width: "15px", ml: "5px" }} />
               </Button>
             </div>
           </div>
